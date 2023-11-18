@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration Page</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/static/WFlogo.png" type="image/x-icon" />
+  </head>
+  <body>
+    <div class="landing">
+      <div class="header">
+         <div class ="container">
+              <div>
+                  <a href="/"><img class="logo" src="/static/WFlogo.png" alt="Web Forum Logo"></a>
+              </div>
+              <div class="align">
+                  <div class="links">
+                      <span class="icon">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                      </span>
+                      <ul>
+                      <li><a href="/">Home</a></li>
+                      <li><a href="/login">Login</a></li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class ="container">
+          <div class="intro-text">
+              <h1>Web Forum Registration</h1>
+              <p>To contribute to the forum, please register here.
+              </p>
+          </div>
+      </div>
+  </div>
+  <br />
+    <div class="form-container">
+      <h1>Register</h1>
+      <form action="/register2" method="post">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Register" />
+        </div>
+        {{ if .ErrorMessage }}
+        <div class="error-message" style="color: red">{{ .ErrorMessage }}</div>
+        {{ end }}
+      </form>
+    </div>
+    <br />
+  </body>
+</html>

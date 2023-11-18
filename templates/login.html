@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/static/WFlogo.png" type="image/x-icon" />
+  </head>
+  <body>
+    <div class="landing">
+      <div class="header"> 
+          <div class ="container">
+              <div>
+                  <a href="/"><img class="logo" src="/static/WFlogo.png" alt="Web Forum Logo"></a>
+              </div>
+              <div class="align">
+                  <div class="links">
+                      <span class="icon">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                      </span>
+                      <ul>
+                      <li><a href="/">Home</a></li>
+                      <li><a href="/register">Register</a></li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class ="container">
+          <div class="intro-text">
+              <h1>Web Forum <br> Login Page</h1>
+              <p>Please login by providing your registered email address and password.
+              </p>
+          </div>
+      </div>
+  </div>
+  <br />
+    <div class="form-container">
+      <h1>Login</h1>
+      <form action="/login" method="post" onsubmit="return validateForm()">
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Login" style="background-color: black;" />
+        </div>
+      </form>
+      <div id="error-message" style="color: red">
+        {{ if .ErrorMessage }} {{ .ErrorMessage }} {{ end }}
+      </div>
+    </div>
+  </body>
+</html>

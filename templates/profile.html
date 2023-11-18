@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/static/WFlogo.png" type="image/x-icon" />
+  </head>
+  <body>
+    <div class="landing">
+      <div class="header">  
+          <div class ="container">
+              <div>
+                  <a href="/"><img class="logo" src="/static/WFlogo.png" alt="Web Forum Logo"></a>
+              </div>
+              <div class="align">
+                  <div class="links">
+                      <span class="icon">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                      </span>
+                      <ul>
+                      <li><a href="/">Home</a></li>
+                      <li><a href="/logout">Logout</a></li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class ="container">
+          <div class="intro-text">
+              <h1>User Profile Page</h1>
+              <p>Behold! It's your email and username.
+              </p>
+          </div>
+      </div>
+  </div>
+  <br />
+    <div class="profile-container">
+        <h1>User Profile</h1>
+        <div class="profile-info">
+            <p>Email: {{.Email}}</p>
+            <p>Username: {{.Username}}</p>
+            <!-- Add more user information as needed -->
+        </div>
+    </div>
+</body>
+</html>

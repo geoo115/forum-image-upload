@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta tags and title -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Forum</title>
+
+    <!-- Link to external stylesheets -->
+    <link rel="stylesheet" href="/static/css/style.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Other links, icons, and favicon links -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Header section -->
+    <link rel="icon" href="/static/WFlogo.png" type="image/x-icon" />
+  </head>
+  <body>
+    <!-- Landing section -->
+    <div class="landing">
+      <div class="header">
+        <div class="container">
+          <div>
+            <!-- Logo and navigation links -->
+            <a href="/"
+              ><img class="logo" src="/static/WFlogo.png" alt="Web Forum Logo"
+            /></a>
+          </div>
+          <div class="align">
+            <div class="links">
+              <span class="icon">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+              <ul>
+                <li><a href="/">Home</a></li>
+                {{if .IsAuthenticated}}
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/logout">Logout</a></li>
+                {{else}}
+                <li><a href="/register">Register</a></li>
+                <li><a href="/login">Login</a></li>
+                {{end}}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="intro-text">
+          <h1>Web Forum</h1>
+          <p>
+            Thank you for joining our community. This forum is a place for
+            enthusiasts to discuss a wide range of topics. Feel free to explore
+            the categories and start engaging with the community. Now with image uploading feature!
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- Filter section -->
+    <div class="filter">
+      <div class="max">
+        <!-- Filter form -->
+        <form action="/filter" method="get">
+          <div>
+            <label for="category">Category:</label>
+            <select id="category" name="category">
+              <option value="">No Filter</option>
+              <option value="General">General</option>
+              <option value="Technology">Technology</option>
+              <option value="Programming">Programming</option>
+            </select>
+          </div>
+          <div>
+            <label for="MyPosts">My Created Posts:</label>
+            <select id="MyPosts" name="createdPosts">
+              <option value="">No Filter</option>
+              <option value="true">Show My Posts</option>
+            </select>
+          </div>
+          <div>
+            <label for="likedPosts">My Liked Posts:</label>
+            <select id="likedPosts" name="likedPosts">
+              <option value="">No Filter</option>
+              <option value="true">Show Posts I Liked</option>
+            </select>
+          </div>
+          <input
+            type="submit"
+            value="Filter"
+            style="color: whitesmoke; background-color: black"
+          />
+        </form>
+      </div>
+    </div>
+    <!-- User Actions Section -->
+    <section id="user-actions">
+      <div class="user">
+        <!-- Welcome message if user is authenticated -->
+        {{if .IsAuthenticated}}
+        <p>
+          <a href="/profile"><i class="fa-solid fa-user fa-xl"></i></a> Welcome,
+          {{.Username}}!
+        </p>
+        {{else}}
+        <p>
+          <a href="/login"><i class="fa-regular fa-user fa-xl"></i></a> Guest
+          User
+        </p>
+        {{end}}
+      </div>
+      {{if .IsAuthenticated}}
+      <!-- <div class="leftside" style="display: grid; align-items: start">
+        <ul class="social-bar">
+          <li>
+            <a class="social-midia" href="https://github.com/Pinkish-Warrior"
+              ><i class="fa-brands fa-github-alt" style="color: aliceblue"></i
+            ></a>
+          </li>
+          <li>
+            <a
+              href="https://discordapp.com/users/830386901021360169830386901021360169"
+              ><i class="fa-brands fa-discord" style="color: aliceblue"></i
+            ></a>
+          </li>
+          <li>
+            <a
+              href="https://www.freecodecamp.org/fcc9ece2f4e-b2c0-422e-817d-3380222717b6"
+              ><i
+                class="fa-brands fa-free-code-camp"
+                style="color: aliceblue"
+              ></i
+            ></a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/tania-rosa-99503b36/"
+              ><i class="fa fa-linkedin" style="color: aliceblue"></i
+            ></a>
+          </li>
+          <li>
+            <a href="https://codewars.com/users/PinkCodeWarrior"
+              ><i class="fa-solid fa-code" style="color: aliceblue"></i>
+            </a>
+          </li>
+        </ul>
+      </div> -->
+      <div class="form-container">
+        <h2>Create a New Post</h2>
+        <form
+          action="/post-added"
+          method="post"
+          onsubmit="addTimestampToCommentForm()"
+          enctype="multipart/form-data"
+        >
+          <!-- Rest of your form elements -->
+          <label for="title">Title:</label>
+          <input type="text" id="title" name="title" /><br />
+
+          <label for="category">Category:</label>
+          <select id="category" name="category">
+            <option value="General">General</option>
+            <option value="Technology">Technology</option>
+            <option value="Programming">Programming</option>
+          </select>
+          <br />
+          <br />
+          <label for="content">Content:</label>
+          <textarea
+            id="content"
+            name="content"
+            rows="5"
+            cols="50"
+            required
+          ></textarea
+          ><br />
+
+          <label for="image">Image:</label>
+
+          <input
+            type="file"
+            id="image"
+            name="image"
+            accept="image/jpg, image/jpeg, image/jfif, image/png, image/gif, image/webp, image/bmp"
+            style="color: #10cab7"
+          />
+          <br />
+          <br />
+          <input
+            type="hidden"
+            id="post_timestamp_hidden"
+            name="timestamp"
+            value=""
+          />
+          <input type="submit" value="Submit" />
+        </form>
+        {{else}}
+        <h2>
+          <a href="register" style="text-decoration: none">Register</a> or
+          <a href="login" style="text-decoration: none">Login</a> to Create a
+          Post
+        </h2>
+        {{end}}
+        <br />
+      </div>
+      <br />
+    </section>
+    <!-- Post Section -->
+    <div class="post">
+      <div class="container">
+        {{if .Posts}}
+
+        <ul class="posts-container" style="text-align: justify">
+          <h2>Latest Posts:</h2>
+
+          {{range .Posts}}
+          <h3>{{.Title}} - Posted by: {{.Username}}</h3>
+          <p class="post-content">
+            {{.Content }}
+
+            <span id="post_timestamp"></span>
+          </p>
+          {{if ne .ImagePath ""}}
+          <img
+            src="{{.ImagePath}}"
+            alt="Post Image"
+            style="
+              display: block;
+              margin-left: auto;
+              margin-right: auto;
+              max-width: 70%;
+              max-height: 70%;
+              object-fit: scale-down;
+            "
+          />
+          {{end}}
+          <p>Category: {{.Category}}</p>
+
+          <!-- Display comments if any -->
+          <h4>Comments</h4>
+          <ul class="comments-container">
+            {{range .Comments}}
+            <li class="comment-content">
+              <span style="color: #10cab7"
+                >{{.Content}}
+                <br />
+              </span>
+              <span>{{.Username}}</span>
+              <!-- DEBUGGING -->
+              <!-- Place the timestamp span here -->
+              <!-- <span id="post_timestamp"></span> -->
+
+              <!-- For Comments -->
+              <div class="like-dislike-buttons">
+                <!-- Like Form -->
+                <form
+                  action="/like-comment"
+                  method="post"
+                  style="display: inline"
+                >
+                  <input type="hidden" name="comment_id" value="{{.ID}}" />
+                  <button
+                    type="submit"
+                    class="like-btn"
+                    style="border: none; background: none; cursor: pointer"
+                  >
+                    <i class="fa-regular fa-heart fa-2xl"></i>
+                  </button>
+                </form>
+                <span class="like-count">{{ .LikeCount }}</span>
+                <!-- Display like count -->
+                <!-- Dislike Form -->
+                <form
+                  action="/dislike-comment"
+                  method="post"
+                  style="display: inline"
+                >
+                  <input type="hidden" name="comment_id" value="{{.ID}}" />
+                  <button
+                    type="submit"
+                    class="like-btn"
+                    style="border: none; background: none; cursor: pointer"
+                  >
+                    <i class="fa-solid fa-heart fa-2xl"></i>
+                  </button>
+                </form>
+                <span class="dislike-count">{{ .DislikeCount }}</span>
+                <!-- Display dislike count -->
+              </div>
+            </li>
+            {{end}}
+          </ul>
+          <section id="comment">
+            <form action="/add-comment" method="post">
+              <input type="hidden" name="post_id" value="{{.ID}}" />
+              <label for="content"> Comment:</label><br />
+              <textarea
+                margin="0"
+                id="content"
+                name="content"
+                rows="3"
+                cols="50"
+                required
+              ></textarea
+              ><br />
+              <input
+                type="submit"
+                value="Add"
+                style="
+                  border-style: none;
+                  color: white;
+                  padding: 10px;
+                  border-radius: 5px;
+                  background-color: #10cab7;
+                "
+              />
+            </form>
+          </section>
+          <br />
+
+          <!-- For Posts -->
+          <div class="like-dislike-buttons">
+            <form action="/like" method="post" style="display: inline">
+              <input type="hidden" name="post_id" value="{{.ID}}" />
+              <button
+                type="submit"
+                class="like-btn"
+                style="border: none; background: none; cursor: pointer"
+              >
+                <!-- IMPORTANT Some options for the icon -->
+                <i class="fa-regular fa-heart fa-2xl"></i>
+                <!-- <i
+                  class="fa-solid fa-question fa-2xl"
+                  style="color: #10cab7"
+                ></i> -->
+                <!-- <i
+                  class="fa-solid fa-puzzle-piece fa-2xl"
+                  style="color: #10cab7"
+                ></i> -->
+              </button>
+            </form>
+            <span id="post_timestamp_{{.ID}}"></span>
+            <span class="like-count">{{ .LikeCount }}</span>
+            <form action="/dislike" method="post" style="display: inline">
+              <input type="hidden" name="post_id" value="{{.ID}}" />
+              <button
+                type="submit"
+                class="dislike-btn"
+                style="border: none; background: none; cursor: pointer"
+              >
+                <i class="fa-solid fa-heart fa-2xl"></i>
+              </button>
+            </form>
+            <span class="dislike-count">{{ .DislikeCount }}</span>
+          </div>
+          <span style="display: flex; justify-content: space-around">
+            <hr
+              style="
+                width: 30%;
+                height: 1px;
+                border: 1px solid #10cab7;
+                border-radius: 1%;
+                background-color: #10cab7;
+              "
+            />
+          </span>
+          <br />
+          {{ end }}
+        </ul>
+        {{else}}
+        <p>No posts available.</p>
+        {{end}}
+      </div>
+    </div>
+    <br />
+    <!-- JavaScript scripts (consider loading from external files) -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        addTimestampToCommentForm();
+      });
+      function addTimestampToCommentForm() {
+        console.log("Function is running");
+        var postTimestamp = document.getElementById("post_timestamp");
+        var now = new Date();
+        var timestamp = now.toISOString(); // Format the timestamp as ISO 860
+        console.log(timestamp);
+        postTimestamp.textContent = "Posted on: " + timestamp; // Display the timestamp in the post content
+      }
+
+      const fileInput = document.getElementById('image');
+      fileInput.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      const isFileValid = checkFileSize(file);
+      if (!isFileValid) {
+        event.preventDefault();
+        fileInput.value = null;
+      }
+    });
+
+    function checkFileSize(file) {
+      const fileSize = file.size;
+      const maxSize = 20 * 1024 * 1024; // 20MB
+      if (fileSize > maxSize) {
+        alert('The image file is too chonky. Please upload a file smaller than 20MB.');
+        return false;
+      }
+      return true;
+    }
+    </script>
+    <!-- Font Awesome script -->
+    <script
+      src="https://kit.fontawesome.com/469d29441d.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
