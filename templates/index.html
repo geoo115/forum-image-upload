@@ -120,40 +120,6 @@
         {{end}}
       </div>
       {{if .IsAuthenticated}}
-      <!-- <div class="leftside" style="display: grid; align-items: start">
-        <ul class="social-bar">
-          <li>
-            <a class="social-midia" href="https://github.com/Pinkish-Warrior"
-              ><i class="fa-brands fa-github-alt" style="color: aliceblue"></i
-            ></a>
-          </li>
-          <li>
-            <a
-              href="https://discordapp.com/users/830386901021360169830386901021360169"
-              ><i class="fa-brands fa-discord" style="color: aliceblue"></i
-            ></a>
-          </li>
-          <li>
-            <a
-              href="https://www.freecodecamp.org/fcc9ece2f4e-b2c0-422e-817d-3380222717b6"
-              ><i
-                class="fa-brands fa-free-code-camp"
-                style="color: aliceblue"
-              ></i
-            ></a>
-          </li>
-          <li>
-            <a href="https://www.linkedin.com/in/tania-rosa-99503b36/"
-              ><i class="fa fa-linkedin" style="color: aliceblue"></i
-            ></a>
-          </li>
-          <li>
-            <a href="https://codewars.com/users/PinkCodeWarrior"
-              ><i class="fa-solid fa-code" style="color: aliceblue"></i>
-            </a>
-          </li>
-        </ul>
-      </div> -->
       <div class="form-container">
         <h2>Create a New Post</h2>
         <form
@@ -255,10 +221,6 @@
                 <br />
               </span>
               <span>{{.Username}}</span>
-              <!-- DEBUGGING -->
-              <!-- Place the timestamp span here -->
-              <!-- <span id="post_timestamp"></span> -->
-
               <!-- For Comments -->
               <div class="like-dislike-buttons">
                 <!-- Like Form -->
@@ -336,16 +298,7 @@
                 class="like-btn"
                 style="border: none; background: none; cursor: pointer"
               >
-                <!-- IMPORTANT Some options for the icon -->
                 <i class="fa-regular fa-heart fa-2xl"></i>
-                <!-- <i
-                  class="fa-solid fa-question fa-2xl"
-                  style="color: #10cab7"
-                ></i> -->
-                <!-- <i
-                  class="fa-solid fa-puzzle-piece fa-2xl"
-                  style="color: #10cab7"
-                ></i> -->
               </button>
             </form>
             <span id="post_timestamp_{{.ID}}"></span>
